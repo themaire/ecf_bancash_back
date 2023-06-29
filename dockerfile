@@ -1,22 +1,22 @@
 FROM node:20-alpine
 
-# Variables d'environnement
+# Environment variables
 ## Globales
 ENV app_name hello_nest
-## Connextion Postgresql
+## Postgresql connexion
 ENV PGDATABASE dbo
 ENV PGUSER cash
 
 WORKDIR /usr/src/app
 
-# Installation de NESTJS
+# NESTJS install via npm
 RUN ["npm", "i", "-g", "@nestjs/cli"]
 
-# Création de l'application
+# Creating the application
 RUN nest new $app_name --package-manager npm
 
 EXPOSE 3000
 
-# Démarrage de l'app
+# Starting app
 WORKDIR $app_name
 ENTRYPOINT ["npm", "run", "start"]

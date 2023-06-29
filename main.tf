@@ -9,12 +9,12 @@ terraform {
   required_version = ">= 1.2.0"
 }
 
-# Definition de la région de travail
+# Region's working definition
 provider "aws" {
   region = "us-west-2"
 }
 
-# Création d'un référentiel pour déposer notre image DOCKER
+# Create a registry for storing Docker image(s)
 resource "aws_ecr_repository" "studi_ecf-nestjs" {
   name = "studi/ecf_frontend"
 
@@ -23,11 +23,11 @@ resource "aws_ecr_repository" "studi_ecf-nestjs" {
   }
 }
 
-# Data source définissant qui nous sommes
+# The AWS user we are in a 'data source'.
 data "aws_caller_identity" "current" {}
 
-# Ajout d'une règle pour supprimer automatiquement les
-# images non tagués.
+# Adding a policy for keeping juste one untagged image on the registry.
+# Avoid too many undesired images.
 resource "aws_ecr_lifecycle_policy" "default_policy" {
   repository = aws_ecr_repository.studi_ecf-nestjs.name
 
@@ -52,7 +52,7 @@ resource "aws_ecr_lifecycle_policy" "default_policy" {
 
 }
 
-# Ajouter notre image Docker "hello_nest:1.0"
+# Add our Docker image "hello_nest:1.0"
 resource "null_resource" "docker_packaging" {
 	
 	  provisioner "local-exec" {
