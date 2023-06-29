@@ -1,0 +1,10 @@
+.DS_Store
+._.DS_Store
+._gitignore
+._dockerfile
+.terraform
+.terraform.lock.hcl
+.terraform.tfstate
+.terraform.tfstate.backup
+terraform.tfstate
+terraform.tfstate.backup
