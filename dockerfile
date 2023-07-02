@@ -2,10 +2,7 @@ FROM node:20-alpine
 
 # Environment variables
 ## Globales
-ENV app_name hello_nest
-## Postgresql connexion
-ENV PGDATABASE dbo
-ENV PGUSER cash
+ENV app_name hello_nestjs
 
 WORKDIR /usr/src/app
 
