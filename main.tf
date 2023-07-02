@@ -14,13 +14,12 @@ terraform {
 }
 
 provider "aws" {
-  # Configuration options
   region = "us-west-2"
 }
 
 # Create a registry for storing Docker image(s)
 resource "aws_ecr_repository" "studi_ecf-nestjs" {
-  name = "studi/ecf_frontend"
+  name = "studi/ecf_bancask_back"
 
   image_scanning_configuration {
     scan_on_push = true
