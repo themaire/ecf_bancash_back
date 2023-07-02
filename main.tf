@@ -1,16 +1,20 @@
+# GOAL : 
+## Step 1 : Create a AWS Elastic Container Registry with a custom policy rule.
+## Step 2 : Build and push the nestjs demo app image to this new ECR.
+
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.16"
+      source = "hashicorp/aws"
+      version = "5.5.0"
     }
   }
 
   required_version = ">= 1.2.0"
 }
 
-# Region's working definition
 provider "aws" {
+  # Configuration options
   region = "us-west-2"
 }
 
@@ -36,7 +40,7 @@ resource "aws_ecr_lifecycle_policy" "default_policy" {
 	    "rules": [
 	        {
 	            "rulePriority": 1,
-	            "description": "Garde la derniere 1 image non taguée.",
+	            "description": "Always keep last 1 untagged image version.",
 	            "selection": {
 	                "tagStatus": "untagged",
 	                "countType": "imageCountMoreThan",
@@ -52,7 +56,12 @@ resource "aws_ecr_lifecycle_policy" "default_policy" {
 
 }
 
-# Add our Docker image "hello_nest:1.0"
+### STEP 2
+## From the ./dockerfile :
+# 1_ : Do a "docker login" to our fresh ECR. AWS credentials given by a AWS cli command.
+# 2_ : build the image (usigne the dockerfile provided)
+# 3_ : push it to the studi/ecf-nestjs ECR registry
+
 resource "null_resource" "docker_packaging" {
 	
 	  provisioner "local-exec" {
