@@ -5,6 +5,7 @@
 Included tasks :
 1. Créez une application Nodejs (hello word) à partir d’une image docker Nodejs que vous exposerez sur un port (de votre choix).
 2. Dockerizez votre application Nodejs.
+3. Écrivez le script qui build/test et le nodejs ~~et déployez le sur le kube créé~~
 
 
 ## Introduction :
