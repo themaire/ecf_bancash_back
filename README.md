@@ -7,7 +7,7 @@ Included tasks :
 2. Dockerizez votre application Nodejs.
 
 
-## Introcution :
+## Introduction :
 <p>This is a NestJs dockerized demo application published on AWS ECR via Terraform</p>
 
 ### What I done :
