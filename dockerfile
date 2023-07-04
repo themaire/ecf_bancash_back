@@ -14,6 +14,6 @@ RUN nest new $app_name --package-manager npm
 
 EXPOSE 3000
 
-# Starting app
+# Enter to the new application folder ans start the app
 WORKDIR $app_name
 ENTRYPOINT ["npm", "run", "start"]

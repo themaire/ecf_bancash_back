@@ -11,7 +11,7 @@ This is a NestJs dockerized demo application published on AWS ECR via Terraform
 
 Make sur to have docker, terraform and aws cli command line tools installed and configured on your machine. Then, you can use the Terraform's main.tf file by :
 
-Some basic Git commands are:
+Usage :
 ```
 terraform init
 terraform plan # For prevew what will do
@@ -24,4 +24,3 @@ terraform apply
 Inspired from : 
 https://www.linkedin.com/pulse/how-upload-docker-images-aws-ecr-using-terraform-hendrix-roa/
 and various Hashicorp documentation pages (https://developer.hashicorp.com/terraform/docs).
-

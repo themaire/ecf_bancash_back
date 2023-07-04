@@ -17,6 +17,7 @@ provider "aws" {
   region = "us-west-2"
 }
 
+### STEP 1 - Create a ECR (AWS's docker image registry). :-)
 # Create a registry for storing Docker image(s)
 resource "aws_ecr_repository" "studi_ecf-nestjs" {
   name = "studi/ecf_bancask_back"
@@ -55,7 +56,7 @@ resource "aws_ecr_lifecycle_policy" "default_policy" {
 
 }
 
-### STEP 2
+### STEP 2 - Build and push to ECR. ;-)
 ## From the ./dockerfile :
 # 1_ : Do a "docker login" to our fresh ECR. AWS credentials given by a AWS cli command.
 # 2_ : build the image (usigne the dockerfile provided)
@@ -71,12 +72,10 @@ resource "null_resource" "docker_packaging" {
 	    EOF
 	  }
 	
-
 	  triggers = {
 	    "run_at" = timestamp()
 	  }
 	
-
 	  depends_on = [
 	    aws_ecr_repository.studi_ecf-nestjs,
 	  ]
