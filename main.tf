@@ -56,19 +56,24 @@ resource "aws_ecr_lifecycle_policy" "default_policy" {
 
 }
 
-### STEP 2 - Build and push to ECR. ;-)
-## From the ./dockerfile :
-# 1_ : Do a "docker login" to our fresh ECR. AWS credentials given by a AWS cli command.
-# 2_ : build the image (usigne the dockerfile provided)
-# 3_ : push it to the studi/ecf-nestjs ECR registry
+### STEP 2 - If 'test' build pass, than build and push the 'production' image it to ECR.  ;-)
+## Execute shell script will do :
+
+#      This is 'multi stage' dockerfile with targets test ans production
+
+# 1_ : Execute units tests while building the image using the target : "test"
+
+# 2_ : If the last build is successful, do the "production" build.
+
+# 3_ : Ececute "docker login" command line to our fresh AWS container registry. AWS credentials given by a AWS cli command.
+
+# 4_ : Push the builded production Docker image to the studi/ecf-nestjs ECR registry.
 
 resource "null_resource" "docker_packaging" {
 	
 	  provisioner "local-exec" {
 	    command = <<EOF
-	    aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin ${data.aws_caller_identity.current.account_id}.dkr.ecr.us-west-2.amazonaws.com
-	    docker build -t "${aws_ecr_repository.studi_ecf-nestjs.repository_url}:latest" -f dockerfile .
-	    docker push "${aws_ecr_repository.studi_ecf-nestjs.repository_url}:latest"
+		/bin/bash ./test_build_push.sh ${data.aws_caller_identity.current.account_id} ${aws_ecr_repository.studi_ecf-nestjs.repository_url}
 	    EOF
 	  }
 	

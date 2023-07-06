@@ -14,10 +14,14 @@ Included tasks :
 ### What I done :
 
 <p>
-Hour priority is to store dockerized NestJS application in a container registry on the cloud. For that, used the Terraform tool (main.ts file) in <b>only two steps :</b><br><br>
-_ Step one : I described how to create a AWS Elastic Container Registry (ECR) to store hour Docker image.<br><br>
-_ Step two : Local execution of Docker commands lines for log-in with AWS server, build the Docker image and finaly push it to our ECR registry.
+Hour priority is to store dockerized NestJS application in a container registry on the cloud. For that, I used the Terraform tool (main.ts file) in <b>only two steps :</b><br><br>
+_ Step one : I described how to create a AWS Elastic Container Registry (ECR) to store our Docker image.<br><br>
+_ Step two : Local execution of a local <b><u>shell script</b></u> who perfoms unit test in a image build phase (from a multi stage dockerfile).<br>
+If no errors occured while testing, the script will : build the production image, log Docker to AWS ECR server, push the image our ECR registry.<br><br></p>
 
+## Off course, the script exits if the unit test faild.
+
+<p><br>
 Make sûr to have docker, terraform and aws cli command line tools installed and configured on your machine. Then, you can use the Terraform's main.tf file by :
 
 Usage :
@@ -26,6 +30,7 @@ terraform init
 terraform plan # For prevew what will do
 terraform apply
 ```
+</p>
 
 # Screenshots
 
